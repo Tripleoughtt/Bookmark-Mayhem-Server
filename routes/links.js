@@ -10,7 +10,7 @@ router.get('/', function(req,res){
   Link.find({}, function(err, links){
     if (err) return res.status(400).send(err);
     res.status(200).send(links);
-  });
+  }).sort({_id: -1});
 });
 
 
