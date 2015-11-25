@@ -7,7 +7,10 @@ var Link = require('../models/link')
 var Tab = require('../models/tab')
 
 router.get('/', function(req,res){
-  res.send('We Got It!')
+  Link.find({}, function(err, links){
+    if (err) return res.status(400).send(err);
+    res.status(200).send(links);
+  });
 });
 
 
