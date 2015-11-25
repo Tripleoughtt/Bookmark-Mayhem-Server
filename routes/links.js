@@ -10,6 +10,8 @@ router.get('/', function(req,res){
   res.send('We Got It!')
 });
 
+
+
 router.post('/create', function(req, res){
   Link.create(req.body, function(err, link){
    console.log('link created: ', link);
