@@ -11,6 +11,12 @@ router.get('/', function(req,res){
   });
 });
 
+router.put('/', function(req, res){
+  Tab.findOneAndUpdate({tabName: req.body.oldName}, {$set: {tabName : req.body.newName}}, function(err, newTab){
+    res.status(err ? 400 : 200).send( err || 'Tag Saved!', newTab)
+  });
+});
+
 router.post('/addLink', function(req,res){
   Link.findOne({linkUrl: req.body.linkUrl}, function(err, foundLink){
     if(err){return res.send(err, 400)}
