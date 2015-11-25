@@ -7,7 +7,7 @@ let Tab;
 
 let tabSchema = Schema({
   tabName : {type: String, required : true, unique: true},
-  links : [{type: mongoose.Schema.Types.ObjectId, ref: 'Url'}] 
+  links : [{type: mongoose.Schema.Types.ObjectId, ref: 'Link'}] 
   //links : [{type: String}]
 });
 

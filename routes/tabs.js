@@ -8,7 +8,7 @@ var Link = require('../models/link')
 router.get('/', function(req,res){
   Tab.find({}, function(err, tabs){
     res.status(err ? 400 : 200).send( err || tabs )
-  });
+  }).populate('links', 'linkUrl')
 });
 
 router.put('/', function(req, res){
