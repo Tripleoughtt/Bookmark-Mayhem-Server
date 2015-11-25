@@ -10,13 +10,21 @@ router.get('/', function(req,res){
   });
 });
 
+//router
+
 router.delete('/', function(req, res){
-  var tabNameToRemove = req.body
-  console.log(tabNameToRemove)
-  Tab.remove({tabName: tabNameToRemove.name }, function(err, removedTab){
+  var tabToRemove = req.body
+  Tab.findOne({tabName: tabToRemove.tabName }, function(err, foundTab){
+    console.log("Found Tbabababa", foundTab)
+    if(err) {return res.send(err, 400)}
+    if(foundTab.links.length){
+      return res.send('You Cannot Delete A Tab With Links Attached!')
+    }
+  Tab.remove({tabName: tabToRemove.tabName }, function(err, removedTab){
     console.log('tag Removed:  ', removedTab);
     res.status((err) ? 400 : 200).send( err || removedTab );
   })
+  });
 })
 
 router.post('/create', function(req, res){
