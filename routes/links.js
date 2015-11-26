@@ -22,7 +22,7 @@ router.post('/create', function(req, res){
   })
 })
 
-router.delete('/', function(req, res){
+router.post('/delete', function(req, res){
   console.log('delete request body ',req.body)
   Module.deleteLink(req, function(err, removedLink){
     res.status(err ? 400 : 200).send(err || removedLink);
