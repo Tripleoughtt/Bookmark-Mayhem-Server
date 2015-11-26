@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var Link = require('../models/link')
 var Tab = require('../models/tab')
+var Module = require('../models/module')
 
 router.get('/', function(req,res){
   Link.find({}, function(err, links){ 
@@ -22,9 +23,15 @@ router.post('/create', function(req, res){
 })
 
 router.delete('/', function(req, res){
-  Link.removeLink(req, function(err, removedLink){
+  Module.deleteLink(req, function(err, removedLink){
     res.status(err ? 400 : 200).send(err || removedLink);
   });
 })
+
+router.put('/', function(req, res){
+  Module.removeLinkFromTab(req, function(err, savedTab){
+    res.status(err ? 400 : 200).send(err || savedTab)
+  });
+});
 
 module.exports = router

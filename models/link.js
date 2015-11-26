@@ -3,7 +3,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Partial = require('./tab')
+var Tab = require('./tab')
 let Link;
 
 let linkSchema= Schema({
@@ -16,16 +16,21 @@ linkSchema.statics.removeLink = function(req, cb){
   Link.findOne({linkUrl: req.body.linkUrl}, function(err, link){
     console.log(link)
     if(err) return cb(err, null)
-    Partial.find({ links: link._id }, function(err,tabs){
+    Tab.find({ links: link._id }, function(err,tabs){
       if(err) return cb(err, null);
       console.log(tabs)
+      if(tabs.length){
       tabs.forEach(function(tab){
         tab.links.splice(tab.links.indexOf(link._id),1);
         tab.save(function(err){
           if(err) return cb('Error saving tags', null) ;
         })
       })
-      return cb(null, 'Link Removed!')
+      }
+      Link.remove({linkUrl: link.linkUrl}, function(err, removedLink){
+        if (err) return cb(err, null);
+        return cb(null, removedLink);
+      });
     })
   })
 }

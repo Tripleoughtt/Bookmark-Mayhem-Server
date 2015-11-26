@@ -35,16 +35,18 @@ tabSchema.statics.updateTab = function(req, cb){
     });
   });
 }
-PartialTab = mongoose.model('Tab', tabSchema);
-module.exports = PartialTab;
 
 var Link = require('./link')
 tabSchema.statics.addLinkToTab = function(req, cb){
   Link.findOne({linkUrl: req.body.linkUrl}, function(err, foundLink){
-    if(err){return res.send(err, 400)}
-    Tab.findOneAndUpdate({tabName : req.body.tabName}, {$push: {links: foundLink._id }}, function(err, foundTab){
-    if (err) return cb(err, null);
-    return cb(null, foundTab)
+    if(foundLink === null || err){return cb('Could Not Find Link With That Name!', null)};
+    Tab.findOne({tabName : req.body.tabName}, function(err, tabCheck){
+      if(tabCheck.links.indexOf(foundLink._id) < 0){
+        Tab.findOneAndUpdate({tabName : req.body.tabName}, {$push: {links: foundLink._id }}, function(err, foundTab){
+          if (err) return cb(err, null);
+          return cb(null, foundTab)
+        });
+      } else {return cb('That link already has that tag!!', null)}
     });
   });
 

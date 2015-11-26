@@ -19,7 +19,7 @@ router.put('/', function(req, res){
 
 router.post('/addLink', function(req,res){
   Tab.addLinkToTab(req, function(err, foundTab){
-    res.status(err ? 400 : 200).send(err || 'Tag Added To Link', foundTab)
+    res.status(err ? 400 : 200).send(err ||  foundTab)
   })
 });
 
