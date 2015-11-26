@@ -13,7 +13,9 @@ let linkSchema= Schema({
 });
 
 linkSchema.statics.removeLink = function(req, cb){
+  console.log(req)
   Link.findOne({linkUrl: req.body.linkUrl}, function(err, link){
+    if(link === null) return cb("Link Was Not Found");
     console.log(link)
     if(err) return cb(err, null)
     Tab.find({ links: link._id }, function(err,tabs){
