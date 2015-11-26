@@ -28,9 +28,16 @@ router.delete('/', function(req, res){
   });
 })
 
+router.get('/getTabs', function(req, res){
+  Module.getTabsForLinks(req, function(err, data){
+    console.log(data)
+    res.status(err ? 400 : 200).send(data)
+  });
+});
+
 router.put('/', function(req, res){
   Module.removeLinkFromTab(req, function(err, savedTab){
-    res.status(err ? 400 : 200).send(err || savedTab)
+    res.status(err ? 400 : 200).send(err || savedTab);
   });
 });
 
