@@ -23,7 +23,7 @@ router.post('/addLink', function(req,res){
   })
 });
 
-router.delete('/', function(req, res){
+router.post('/delete', function(req, res){
     Tab.removeTab(req.body, function(err, removedTab){
       res.status(err ? 400 : 200).send(err || removedTab); 
     });
