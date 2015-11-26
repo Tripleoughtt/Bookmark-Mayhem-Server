@@ -13,7 +13,7 @@ let linkSchema= Schema({
 });
 
 linkSchema.statics.removeLink = function(req, cb){
-  console.log(req)
+  console.log(req.body)
   Link.findOne({linkUrl: req.body.linkUrl}, function(err, link){
     if(link === null) return cb("Link Was Not Found");
     console.log(link)
