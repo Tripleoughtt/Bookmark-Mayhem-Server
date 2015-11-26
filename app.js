@@ -36,9 +36,9 @@ app.use(cors());
 
 
 
-app.use('/', routes);
-app.use('/tabs', require('./routes/tabs'))
-app.use('/links', require('./routes/links'))
+app.use('/', cors(), routes);
+app.use('/tabs', cors(), require('./routes/tabs'))
+app.use('/links', cors(), require('./routes/links'))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
